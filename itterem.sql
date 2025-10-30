@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2025. Okt 29. 11:55
+-- Létrehozás ideje: 2025. Okt 30. 11:19
 -- Kiszolgáló verziója: 10.4.32-MariaDB
 -- PHP verzió: 8.2.12
 
@@ -50,6 +50,13 @@ CREATE TABLE `hozzavalok` (
   `nev` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 
+--
+-- A tábla adatainak kiíratása `hozzavalok`
+--
+
+INSERT INTO `hozzavalok` (`id`, `nev`) VALUES
+(1, 'testhozzavalo\r\n');
+
 -- --------------------------------------------------------
 
 --
@@ -60,6 +67,13 @@ CREATE TABLE `hozzavalok_alergenek_kapcsolo` (
   `Hozzavalok_id` int(11) NOT NULL,
   `alergenek_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
+
+--
+-- A tábla adatainak kiíratása `hozzavalok_alergenek_kapcsolo`
+--
+
+INSERT INTO `hozzavalok_alergenek_kapcsolo` (`Hozzavalok_id`, `alergenek_id`) VALUES
+(1, 1);
 
 -- --------------------------------------------------------
 
@@ -74,6 +88,13 @@ CREATE TABLE `jogok` (
   `leiras` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 
+--
+-- A tábla adatainak kiíratása `jogok`
+--
+
+INSERT INTO `jogok` (`id`, `szint`, `nev`, `leiras`) VALUES
+(1, 0, 'Felhasználó', 'Bejelentkezett felhasználó, alap jog');
+
 -- --------------------------------------------------------
 
 --
@@ -82,7 +103,8 @@ CREATE TABLE `jogok` (
 
 CREATE TABLE `keszetelek` (
   `id` int(11) NOT NULL,
-  `nev` varchar(64) NOT NULL
+  `nev` varchar(64) NOT NULL,
+  `leiras` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 
 -- --------------------------------------------------------
@@ -104,15 +126,16 @@ CREATE TABLE `keszetel_hozzavalok_kapcsolo` (
 
 CREATE TABLE `koretek` (
   `id` int(11) NOT NULL,
-  `nev` varchar(64) NOT NULL
+  `nev` varchar(64) NOT NULL,
+  `leiras` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 
 --
 -- A tábla adatainak kiíratása `koretek`
 --
 
-INSERT INTO `koretek` (`id`, `nev`) VALUES
-(1, 'testköret1');
+INSERT INTO `koretek` (`id`, `nev`, `leiras`) VALUES
+(1, 'testköret1', '');
 
 -- --------------------------------------------------------
 
@@ -153,10 +176,17 @@ CREATE TABLE `menuk` (
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `jogosultsag` int(1) NOT NULL,
-  `teljes_nev` int(11) NOT NULL,
+  `teljes_nev` varchar(64) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `telefonszam` int(11) NOT NULL
+  `telefonszam` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
+
+--
+-- A tábla adatainak kiíratása `users`
+--
+
+INSERT INTO `users` (`id`, `jogosultsag`, `teljes_nev`, `email`, `telefonszam`) VALUES
+(1, 0, 'Teszt Elek', 'Email@email.com', '+36 20 2579632');
 
 --
 -- Indexek a kiírt táblákhoz
@@ -244,13 +274,13 @@ ALTER TABLE `alergenek`
 -- AUTO_INCREMENT a táblához `hozzavalok`
 --
 ALTER TABLE `hozzavalok`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT a táblához `jogok`
 --
 ALTER TABLE `jogok`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT a táblához `keszetelek`
@@ -274,7 +304,7 @@ ALTER TABLE `menuk`
 -- AUTO_INCREMENT a táblához `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Megkötések a kiírt táblákhoz

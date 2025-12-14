@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2025. Okt 30. 11:19
+-- Létrehozás ideje: 2025. Dec 14. 12:46
 -- Kiszolgáló verziója: 10.4.32-MariaDB
 -- PHP verzió: 8.2.12
 
@@ -24,56 +24,23 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Tábla szerkezet ehhez a táblához `alergenek`
---
-
-CREATE TABLE `alergenek` (
-  `id` int(11) NOT NULL,
-  `nev` varchar(64) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
-
---
--- A tábla adatainak kiíratása `alergenek`
---
-
-INSERT INTO `alergenek` (`id`, `nev`) VALUES
-(1, 'testalergén1');
-
--- --------------------------------------------------------
-
---
 -- Tábla szerkezet ehhez a táblához `hozzavalok`
 --
 
 CREATE TABLE `hozzavalok` (
   `id` int(11) NOT NULL,
-  `nev` varchar(64) NOT NULL
+  `hozzavalo_nev` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 
 --
 -- A tábla adatainak kiíratása `hozzavalok`
 --
 
-INSERT INTO `hozzavalok` (`id`, `nev`) VALUES
-(1, 'testhozzavalo\r\n');
-
--- --------------------------------------------------------
-
---
--- Tábla szerkezet ehhez a táblához `hozzavalok_alergenek_kapcsolo`
---
-
-CREATE TABLE `hozzavalok_alergenek_kapcsolo` (
-  `Hozzavalok_id` int(11) NOT NULL,
-  `alergenek_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
-
---
--- A tábla adatainak kiíratása `hozzavalok_alergenek_kapcsolo`
---
-
-INSERT INTO `hozzavalok_alergenek_kapcsolo` (`Hozzavalok_id`, `alergenek_id`) VALUES
-(1, 1);
+INSERT INTO `hozzavalok` (`id`, `hozzavalo_nev`) VALUES
+(1, 'Hamburger hus'),
+(2, 'Hamburger puffancs'),
+(3, 'Spegetti tészta'),
+(4, 'Spagetti hús');
 
 -- --------------------------------------------------------
 
@@ -107,6 +74,14 @@ CREATE TABLE `keszetelek` (
   `leiras` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 
+--
+-- A tábla adatainak kiíratása `keszetelek`
+--
+
+INSERT INTO `keszetelek` (`id`, `nev`, `leiras`) VALUES
+(1, 'Sima Hamburger', 'Sima Hamburger'),
+(2, 'Bolognai spagetti', 'Bolognai spagetti');
+
 -- --------------------------------------------------------
 
 --
@@ -117,6 +92,16 @@ CREATE TABLE `keszetel_hozzavalok_kapcsolo` (
   `keszetel_id` int(11) NOT NULL,
   `hozzavalok_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
+
+--
+-- A tábla adatainak kiíratása `keszetel_hozzavalok_kapcsolo`
+--
+
+INSERT INTO `keszetel_hozzavalok_kapcsolo` (`keszetel_id`, `hozzavalok_id`) VALUES
+(1, 1),
+(1, 2),
+(2, 3),
+(2, 4);
 
 -- --------------------------------------------------------
 
@@ -140,32 +125,42 @@ INSERT INTO `koretek` (`id`, `nev`, `leiras`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tábla szerkezet ehhez a táblához `koretek_alergenek_kapcsolo`
---
-
-CREATE TABLE `koretek_alergenek_kapcsolo` (
-  `koret_id` int(11) NOT NULL,
-  `alergenek_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
-
---
--- A tábla adatainak kiíratása `koretek_alergenek_kapcsolo`
---
-
-INSERT INTO `koretek_alergenek_kapcsolo` (`koret_id`, `alergenek_id`) VALUES
-(1, 1);
-
--- --------------------------------------------------------
-
---
 -- Tábla szerkezet ehhez a táblához `menuk`
 --
 
 CREATE TABLE `menuk` (
   `id` int(11) NOT NULL,
+  `menu_nev` varchar(20) NOT NULL,
   `keszetel_id` int(11) NOT NULL,
-  `koret_id` int(11) NOT NULL
+  `koret_id` int(11) NOT NULL,
+  `udito_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
+
+--
+-- A tábla adatainak kiíratása `menuk`
+--
+
+INSERT INTO `menuk` (`id`, `menu_nev`, `keszetel_id`, `koret_id`, `udito_id`) VALUES
+(2, 'Hamburger menu', 1, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Tábla szerkezet ehhez a táblához `uditok`
+--
+
+CREATE TABLE `uditok` (
+  `id` int(11) NOT NULL,
+  `nev` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
+
+--
+-- A tábla adatainak kiíratása `uditok`
+--
+
+INSERT INTO `uditok` (`id`, `nev`) VALUES
+(1, 'Pepsi 0,5L'),
+(2, 'Nincs ital');
 
 -- --------------------------------------------------------
 
@@ -193,23 +188,10 @@ INSERT INTO `users` (`id`, `jogosultsag`, `teljes_nev`, `email`, `telefonszam`) 
 --
 
 --
--- A tábla indexei `alergenek`
---
-ALTER TABLE `alergenek`
-  ADD PRIMARY KEY (`id`);
-
---
 -- A tábla indexei `hozzavalok`
 --
 ALTER TABLE `hozzavalok`
   ADD PRIMARY KEY (`id`);
-
---
--- A tábla indexei `hozzavalok_alergenek_kapcsolo`
---
-ALTER TABLE `hozzavalok_alergenek_kapcsolo`
-  ADD KEY `hozzavalok_id` (`Hozzavalok_id`),
-  ADD KEY `alergenek_id` (`alergenek_id`);
 
 --
 -- A tábla indexei `jogok`
@@ -238,19 +220,19 @@ ALTER TABLE `koretek`
   ADD PRIMARY KEY (`id`);
 
 --
--- A tábla indexei `koretek_alergenek_kapcsolo`
---
-ALTER TABLE `koretek_alergenek_kapcsolo`
-  ADD KEY `koret_id` (`koret_id`,`alergenek_id`),
-  ADD KEY `alergenek_id` (`alergenek_id`);
-
---
 -- A tábla indexei `menuk`
 --
 ALTER TABLE `menuk`
   ADD PRIMARY KEY (`id`),
   ADD KEY `keszetel_id` (`keszetel_id`,`koret_id`),
-  ADD KEY `koret_id` (`koret_id`);
+  ADD KEY `koret_id` (`koret_id`),
+  ADD KEY `index` (`udito_id`);
+
+--
+-- A tábla indexei `uditok`
+--
+ALTER TABLE `uditok`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- A tábla indexei `users`
@@ -265,16 +247,10 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT a táblához `alergenek`
---
-ALTER TABLE `alergenek`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
 -- AUTO_INCREMENT a táblához `hozzavalok`
 --
 ALTER TABLE `hozzavalok`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT a táblához `jogok`
@@ -286,7 +262,7 @@ ALTER TABLE `jogok`
 -- AUTO_INCREMENT a táblához `keszetelek`
 --
 ALTER TABLE `keszetelek`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT a táblához `koretek`
@@ -298,7 +274,13 @@ ALTER TABLE `koretek`
 -- AUTO_INCREMENT a táblához `menuk`
 --
 ALTER TABLE `menuk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT a táblához `uditok`
+--
+ALTER TABLE `uditok`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT a táblához `users`
@@ -311,32 +293,19 @@ ALTER TABLE `users`
 --
 
 --
--- Megkötések a táblához `hozzavalok_alergenek_kapcsolo`
---
-ALTER TABLE `hozzavalok_alergenek_kapcsolo`
-  ADD CONSTRAINT `hozzavalok_alergenek_kapcsolo_ibfk_1` FOREIGN KEY (`Hozzavalok_id`) REFERENCES `hozzavalok` (`id`),
-  ADD CONSTRAINT `hozzavalok_alergenek_kapcsolo_ibfk_2` FOREIGN KEY (`alergenek_id`) REFERENCES `alergenek` (`id`);
-
---
 -- Megkötések a táblához `keszetel_hozzavalok_kapcsolo`
 --
 ALTER TABLE `keszetel_hozzavalok_kapcsolo`
   ADD CONSTRAINT `keszetel_hozzavalok_kapcsolo_ibfk_1` FOREIGN KEY (`keszetel_id`) REFERENCES `keszetelek` (`id`),
-  ADD CONSTRAINT `keszetel_hozzavalok_kapcsolo_ibfk_2` FOREIGN KEY (`hozzavalok_id`) REFERENCES `hozzavalok` (`id`);
-
---
--- Megkötések a táblához `koretek_alergenek_kapcsolo`
---
-ALTER TABLE `koretek_alergenek_kapcsolo`
-  ADD CONSTRAINT `koretek_alergenek_kapcsolo_ibfk_1` FOREIGN KEY (`koret_id`) REFERENCES `koretek` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `koretek_alergenek_kapcsolo_ibfk_2` FOREIGN KEY (`alergenek_id`) REFERENCES `alergenek` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `keszetel_hozzavalok_kapcsolo_ibfk_2` FOREIGN KEY (`hozzavalok_id`) REFERENCES `hozzavalok` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Megkötések a táblához `menuk`
 --
 ALTER TABLE `menuk`
   ADD CONSTRAINT `menuk_ibfk_1` FOREIGN KEY (`keszetel_id`) REFERENCES `keszetelek` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `menuk_ibfk_2` FOREIGN KEY (`koret_id`) REFERENCES `koretek` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `menuk_ibfk_2` FOREIGN KEY (`koret_id`) REFERENCES `koretek` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `udito_menu_kapcs` FOREIGN KEY (`udito_id`) REFERENCES `uditok` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Megkötések a táblához `users`

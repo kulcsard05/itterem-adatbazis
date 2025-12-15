@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2025. Dec 14. 12:46
+-- Létrehozás ideje: 2025. Dec 15. 10:20
 -- Kiszolgáló verziója: 10.4.32-MariaDB
 -- PHP verzió: 8.2.12
 
@@ -173,15 +173,19 @@ CREATE TABLE `users` (
   `jogosultsag` int(1) NOT NULL,
   `teljes_nev` varchar(64) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `telefonszam` varchar(20) NOT NULL
+  `telefonszam` varchar(20) NOT NULL,
+  `Hash` varchar(64) NOT NULL,
+  `Salt` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 
 --
 -- A tábla adatainak kiíratása `users`
 --
 
-INSERT INTO `users` (`id`, `jogosultsag`, `teljes_nev`, `email`, `telefonszam`) VALUES
-(1, 0, 'Teszt Elek', 'Email@email.com', '+36 20 2579632');
+INSERT INTO `users` (`id`, `jogosultsag`, `teljes_nev`, `email`, `telefonszam`, `Hash`, `Salt`) VALUES
+(1, 0, 'Teszt Elek', 'Email@email.com', '+36 20 2579632', '', ''),
+(2, 0, 'Kovács János', 'kovacs.janos@email.com', '+36 30 1234567', '490c4e4908bec2e66945e593583dd48358c1a4d5d410184022f871b1a9ad2aba', 'P8IssOLh0dJwoHyXHNMsO27YNsGEeapeskUrOeT48Hfow5Ni1EoG78BhSn0kWDmn'),
+(3, 0, 'Kovács János2', 'kovacs.janos2@email.com', '+36 20 1234567', 'a13d9ac4fecb3bdbf9beaaa7241c24542bb8d2273953485b70032ed4e02e012f', 'V97HUYCZ3ctnuOqFdSC9KkZVgysPT4UFgeeMyZoHRay0qtutP6VEV9tXVBbNtrdu');
 
 --
 -- Indexek a kiírt táblákhoz
@@ -286,7 +290,7 @@ ALTER TABLE `uditok`
 -- AUTO_INCREMENT a táblához `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Megkötések a kiírt táblákhoz

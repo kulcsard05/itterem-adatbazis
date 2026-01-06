@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2025. Dec 16. 07:08
+-- Létrehozás ideje: 2026. Jan 06. 15:35
 -- Kiszolgáló verziója: 10.4.32-MariaDB
 -- PHP verzió: 8.2.12
 
@@ -72,16 +72,17 @@ INSERT INTO `jogok` (`id`, `szint`, `nev`, `leiras`) VALUES
 CREATE TABLE `keszetelek` (
   `id` int(11) NOT NULL,
   `nev` varchar(64) NOT NULL,
-  `leiras` varchar(100) NOT NULL
+  `leiras` varchar(100) NOT NULL,
+  `elerheto` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 
 --
 -- A tábla adatainak kiíratása `keszetelek`
 --
 
-INSERT INTO `keszetelek` (`id`, `nev`, `leiras`) VALUES
-(1, 'Sima Hamburger', 'Sima Hamburger'),
-(2, 'Bolognai spagetti', 'Bolognai spagetti');
+INSERT INTO `keszetelek` (`id`, `nev`, `leiras`, `elerheto`) VALUES
+(1, 'Sima Hamburger', 'Sima Hamburger', 1),
+(2, 'Bolognai spagetti', 'Bolognai spagetti', 0);
 
 -- --------------------------------------------------------
 
@@ -113,15 +114,16 @@ INSERT INTO `keszetel_hozzavalok_kapcsolo` (`keszetel_id`, `hozzavalok_id`) VALU
 CREATE TABLE `koretek` (
   `id` int(11) NOT NULL,
   `nev` varchar(64) NOT NULL,
-  `leiras` varchar(100) NOT NULL
+  `leiras` varchar(100) NOT NULL,
+  `elerheto` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 
 --
 -- A tábla adatainak kiíratása `koretek`
 --
 
-INSERT INTO `koretek` (`id`, `nev`, `leiras`) VALUES
-(1, 'testköret1', '');
+INSERT INTO `koretek` (`id`, `nev`, `leiras`, `elerheto`) VALUES
+(1, 'testköret1', '', 1);
 
 -- --------------------------------------------------------
 
@@ -134,15 +136,16 @@ CREATE TABLE `menuk` (
   `menu_nev` varchar(20) NOT NULL,
   `keszetel_id` int(11) NOT NULL,
   `koret_id` int(11) NOT NULL,
-  `udito_id` int(11) NOT NULL
+  `udito_id` int(11) NOT NULL,
+  `elerheto` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 
 --
 -- A tábla adatainak kiíratása `menuk`
 --
 
-INSERT INTO `menuk` (`id`, `menu_nev`, `keszetel_id`, `koret_id`, `udito_id`) VALUES
-(2, 'Hamburger menu', 1, 1, 1);
+INSERT INTO `menuk` (`id`, `menu_nev`, `keszetel_id`, `koret_id`, `udito_id`, `elerheto`) VALUES
+(2, 'Hamburger menu', 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -152,16 +155,17 @@ INSERT INTO `menuk` (`id`, `menu_nev`, `keszetel_id`, `koret_id`, `udito_id`) VA
 
 CREATE TABLE `uditok` (
   `id` int(11) NOT NULL,
-  `nev` varchar(20) NOT NULL
+  `nev` varchar(20) NOT NULL,
+  `elerheto` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 
 --
 -- A tábla adatainak kiíratása `uditok`
 --
 
-INSERT INTO `uditok` (`id`, `nev`) VALUES
-(1, 'Pepsi 0,5L'),
-(2, 'Nincs ital');
+INSERT INTO `uditok` (`id`, `nev`, `elerheto`) VALUES
+(1, 'Pepsi 0,5L', 0),
+(2, 'Nincs ital', 1);
 
 -- --------------------------------------------------------
 

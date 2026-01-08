@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2026. Jan 06. 15:35
+-- Létrehozás ideje: 2026. Jan 08. 12:43
 -- Kiszolgáló verziója: 10.4.32-MariaDB
 -- PHP verzió: 8.2.12
 
@@ -189,7 +189,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `jogosultsag`, `teljes_nev`, `email`, `telefonszam`, `Hash`, `Salt`, `aktiv`) VALUES
-(6, 1, 'Teszt Felhasználó', 'teszt@teszt.hu', '+36 30 1234567', '620267918570d277815a3700c895dd9afeaf0a38ffe65df63cdb5bcb167da859', 'Yk9SLevKeXLViQoVlAoIflzDCg0jrFjtryFqrPqH6VL2dbDDGMBBfH34fYXK0u2u', 1);
+(9, 1, 'Teszt Felhasználó', 'teszt1@teszt.hu', '+36 30 1234567', 'f4c990d0be3bc2999a6fa18d5cf64bf16ff75a100dfda81deca66110677e1b82', 'syoIXcGLYj1urpzibPi7SQ1UHpbliPDxiFBhdEQIItpmzrlK41kNEBgYS2ROysl7', 1);
 
 --
 -- Indexek a kiírt táblákhoz
@@ -295,7 +295,7 @@ ALTER TABLE `uditok`
 -- AUTO_INCREMENT a táblához `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Megkötések a kiírt táblákhoz

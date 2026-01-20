@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2026. Jan 08. 12:43
+-- Létrehozás ideje: 2026. Jan 20. 12:15
 -- Kiszolgáló verziója: 10.4.32-MariaDB
 -- PHP verzió: 8.2.12
 
@@ -189,7 +189,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `jogosultsag`, `teljes_nev`, `email`, `telefonszam`, `Hash`, `Salt`, `aktiv`) VALUES
-(9, 1, 'Teszt Felhasználó', 'teszt1@teszt.hu', '+36 30 1234567', 'f4c990d0be3bc2999a6fa18d5cf64bf16ff75a100dfda81deca66110677e1b82', 'syoIXcGLYj1urpzibPi7SQ1UHpbliPDxiFBhdEQIItpmzrlK41kNEBgYS2ROysl7', 1);
+(14, 1, 'Teszt Felhasználó', 'teszt1@teszt.hu', '+36 30 1234567', '3126ea157a83cd56a1c13466e57770cda4b0f57580350d26bcb7492aebd321cd', 'z3QvvUccODMbctUB4j0gB3ZjWBLol3oalDxDsdkdiCMhSm26uHAeWYGt9k8sGRq9', 1),
+(15, 1, 'string', 'string', 'string', '473287f8298dba7163a897908958f7c0eae733e25d2e027992ea2edc9bed2fa8', 'string', 2);
 
 --
 -- Indexek a kiírt táblákhoz
@@ -295,7 +296,7 @@ ALTER TABLE `uditok`
 -- AUTO_INCREMENT a táblához `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Megkötések a kiírt táblákhoz

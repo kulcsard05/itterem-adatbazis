@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2026. Jan 20. 12:15
+-- Létrehozás ideje: 2026. Jan 27. 11:16
 -- Kiszolgáló verziója: 10.4.32-MariaDB
 -- PHP verzió: 8.2.12
 
@@ -66,6 +66,24 @@ INSERT INTO `jogok` (`id`, `szint`, `nev`, `leiras`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Tábla szerkezet ehhez a táblához `kategora`
+--
+
+CREATE TABLE `kategora` (
+  `id` int(11) NOT NULL,
+  `nev` varchar(60) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- A tábla adatainak kiíratása `kategora`
+--
+
+INSERT INTO `kategora` (`id`, `nev`) VALUES
+(4, 'Hamburgerek');
+
+-- --------------------------------------------------------
+
+--
 -- Tábla szerkezet ehhez a táblához `keszetelek`
 --
 
@@ -73,16 +91,16 @@ CREATE TABLE `keszetelek` (
   `id` int(11) NOT NULL,
   `nev` varchar(64) NOT NULL,
   `leiras` varchar(100) NOT NULL,
-  `elerheto` tinyint(4) NOT NULL
+  `elerheto` tinyint(4) NOT NULL,
+  `kategoria_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 
 --
 -- A tábla adatainak kiíratása `keszetelek`
 --
 
-INSERT INTO `keszetelek` (`id`, `nev`, `leiras`, `elerheto`) VALUES
-(1, 'Sima Hamburger', 'Sima Hamburger', 1),
-(2, 'Bolognai spagetti', 'Bolognai spagetti', 0);
+INSERT INTO `keszetelek` (`id`, `nev`, `leiras`, `elerheto`, `kategoria_id`) VALUES
+(4, 'Sima Hamburger', '1232113213213', 0, 4);
 
 -- --------------------------------------------------------
 
@@ -190,7 +208,9 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `jogosultsag`, `teljes_nev`, `email`, `telefonszam`, `Hash`, `Salt`, `aktiv`) VALUES
 (14, 1, 'Teszt Felhasználó', 'teszt1@teszt.hu', '+36 30 1234567', '3126ea157a83cd56a1c13466e57770cda4b0f57580350d26bcb7492aebd321cd', 'z3QvvUccODMbctUB4j0gB3ZjWBLol3oalDxDsdkdiCMhSm26uHAeWYGt9k8sGRq9', 1),
-(15, 1, 'string', 'string', 'string', '473287f8298dba7163a897908958f7c0eae733e25d2e027992ea2edc9bed2fa8', 'string', 2);
+(23, 1, 'Teszt Felhasználó', 'teszt12@teszt.hu', '+36 30 1234567', '3126ea157a83cd56a1c13466e57770cda4b0f57580350d26bcb7492aebd321cd', '3bx2OJGYGHcBb5zfSNNTes2tvgumteDjqSjLXGZDVvWPI66ZYfQFKZQPj5RmjSf9', 1),
+(27, 1, 'string', 'string', 'string', '8d8332a807b96ca6d4c0c41de8f62aa627654b9e975b4344e8a77f5a141f5b5a', '75se1Tbhmo4Q9Azu66EKJBV7Fjo9Xkv68QrzxKKyiVxj3yR8q5T13dzWDWR0RDi2', 2),
+(28, 1, 'string11', 'string11', 'string', 'a2a49fe2f49c377a9eb817c270337232f8a1fcdf0990a079072e39ce01f281b3', 'utCOMHvVF7Sb77CmYF1MJw==', 2);
 
 --
 -- Indexek a kiírt táblákhoz
@@ -210,10 +230,17 @@ ALTER TABLE `jogok`
   ADD UNIQUE KEY `szint` (`szint`);
 
 --
+-- A tábla indexei `kategora`
+--
+ALTER TABLE `kategora`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- A tábla indexei `keszetelek`
 --
 ALTER TABLE `keszetelek`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `kategoria_id` (`kategoria_id`);
 
 --
 -- A tábla indexei `keszetel_hozzavalok_kapcsolo`
@@ -266,13 +293,19 @@ ALTER TABLE `hozzavalok`
 -- AUTO_INCREMENT a táblához `jogok`
 --
 ALTER TABLE `jogok`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT a táblához `kategora`
+--
+ALTER TABLE `kategora`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT a táblához `keszetelek`
 --
 ALTER TABLE `keszetelek`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT a táblához `koretek`
@@ -296,11 +329,17 @@ ALTER TABLE `uditok`
 -- AUTO_INCREMENT a táblához `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- Megkötések a kiírt táblákhoz
 --
+
+--
+-- Megkötések a táblához `keszetelek`
+--
+ALTER TABLE `keszetelek`
+  ADD CONSTRAINT `kat` FOREIGN KEY (`kategoria_id`) REFERENCES `kategora` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Megkötések a táblához `keszetel_hozzavalok_kapcsolo`

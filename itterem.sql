@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2026. Jan 27. 11:16
+-- Létrehozás ideje: 2026. Jan 27. 12:00
 -- Kiszolgáló verziója: 10.4.32-MariaDB
 -- PHP verzió: 8.2.12
 
@@ -100,7 +100,9 @@ CREATE TABLE `keszetelek` (
 --
 
 INSERT INTO `keszetelek` (`id`, `nev`, `leiras`, `elerheto`, `kategoria_id`) VALUES
-(4, 'Sima Hamburger', '1232113213213', 0, 4);
+(1, 'Sima Hamburger', 'Alap hamburger', 1, 4),
+(2, 'Sajtos Hamburger', 'Hamburger sajttal', 1, 4),
+(4, 'Sima Hamburger (régi)', '1232113213213', 0, 4);
 
 -- --------------------------------------------------------
 
@@ -141,7 +143,9 @@ CREATE TABLE `koretek` (
 --
 
 INSERT INTO `koretek` (`id`, `nev`, `leiras`, `elerheto`) VALUES
-(1, 'testköret1', '', 1);
+(1, 'testköret1', '', 1),
+(2, 'testtest', 'asd', 0),
+(3, 'testtest2', 'asd', 1);
 
 -- --------------------------------------------------------
 
@@ -210,7 +214,8 @@ INSERT INTO `users` (`id`, `jogosultsag`, `teljes_nev`, `email`, `telefonszam`, 
 (14, 1, 'Teszt Felhasználó', 'teszt1@teszt.hu', '+36 30 1234567', '3126ea157a83cd56a1c13466e57770cda4b0f57580350d26bcb7492aebd321cd', 'z3QvvUccODMbctUB4j0gB3ZjWBLol3oalDxDsdkdiCMhSm26uHAeWYGt9k8sGRq9', 1),
 (23, 1, 'Teszt Felhasználó', 'teszt12@teszt.hu', '+36 30 1234567', '3126ea157a83cd56a1c13466e57770cda4b0f57580350d26bcb7492aebd321cd', '3bx2OJGYGHcBb5zfSNNTes2tvgumteDjqSjLXGZDVvWPI66ZYfQFKZQPj5RmjSf9', 1),
 (27, 1, 'string', 'string', 'string', '8d8332a807b96ca6d4c0c41de8f62aa627654b9e975b4344e8a77f5a141f5b5a', '75se1Tbhmo4Q9Azu66EKJBV7Fjo9Xkv68QrzxKKyiVxj3yR8q5T13dzWDWR0RDi2', 2),
-(28, 1, 'string11', 'string11', 'string', 'a2a49fe2f49c377a9eb817c270337232f8a1fcdf0990a079072e39ce01f281b3', 'utCOMHvVF7Sb77CmYF1MJw==', 2);
+(28, 1, 'string11', 'string11', 'string', 'a2a49fe2f49c377a9eb817c270337232f8a1fcdf0990a079072e39ce01f281b3', 'utCOMHvVF7Sb77CmYF1MJw==', 2),
+(29, 1, 'test', 'test', 'test', '11baf333c97746a54f85ae08893bb0e0a19586fc98d060dba189c82c3d63b1ce', 'JgAJ/zRDpJZ63nKmUUprTw==', 1);
 
 --
 -- Indexek a kiírt táblákhoz
@@ -287,7 +292,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT a táblához `hozzavalok`
 --
 ALTER TABLE `hozzavalok`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT a táblához `jogok`
@@ -299,7 +304,7 @@ ALTER TABLE `jogok`
 -- AUTO_INCREMENT a táblához `kategora`
 --
 ALTER TABLE `kategora`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT a táblához `keszetelek`
@@ -311,7 +316,7 @@ ALTER TABLE `keszetelek`
 -- AUTO_INCREMENT a táblához `koretek`
 --
 ALTER TABLE `koretek`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT a táblához `menuk`
@@ -329,7 +334,7 @@ ALTER TABLE `uditok`
 -- AUTO_INCREMENT a táblához `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- Megkötések a kiírt táblákhoz

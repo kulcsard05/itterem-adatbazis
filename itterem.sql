@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2026. Jan 27. 12:00
+-- Létrehozás ideje: 2026. Jan 29. 07:56
 -- Kiszolgáló verziója: 10.4.32-MariaDB
 -- PHP verzió: 8.2.12
 
@@ -186,7 +186,7 @@ CREATE TABLE `uditok` (
 --
 
 INSERT INTO `uditok` (`id`, `nev`, `elerheto`) VALUES
-(1, 'Pepsi 0,5L', 0),
+(1, 'Pepsi 0,5L', 1),
 (2, 'Nincs ital', 1);
 
 -- --------------------------------------------------------
@@ -328,7 +328,7 @@ ALTER TABLE `menuk`
 -- AUTO_INCREMENT a táblához `uditok`
 --
 ALTER TABLE `uditok`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT a táblához `users`

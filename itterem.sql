@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2026. Feb 07. 10:41
+-- Létrehozás ideje: 2026. Feb 09. 11:20
 -- Kiszolgáló verziója: 10.4.32-MariaDB
 -- PHP verzió: 8.2.12
 
@@ -194,8 +194,7 @@ CREATE TABLE `rendelesek` (
 --
 
 INSERT INTO `rendelesek` (`id`, `felhasznalo_id`, `datum`, `statusz`) VALUES
-(1, 23, '2026-02-07 10:30:54', 'Függőben'),
-(2, 23, '2026-02-07 10:33:03', 'Függőben');
+(21, 23, '2026-02-09 11:04:04', 'Pending');
 
 -- --------------------------------------------------------
 
@@ -209,6 +208,7 @@ CREATE TABLE `rendeles_elemek` (
   `keszetel_id` int(11) DEFAULT NULL,
   `udito_id` int(11) DEFAULT NULL,
   `menu_id` int(11) DEFAULT NULL,
+  `koret_id` int(11) DEFAULT NULL,
   `mennyiseg` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 
@@ -216,9 +216,9 @@ CREATE TABLE `rendeles_elemek` (
 -- A tábla adatainak kiíratása `rendeles_elemek`
 --
 
-INSERT INTO `rendeles_elemek` (`id`, `rendeles_id`, `keszetel_id`, `udito_id`, `menu_id`, `mennyiseg`) VALUES
-(5, 1, 2, 2, 2, 1),
-(6, 2, 2, NULL, NULL, 1);
+INSERT INTO `rendeles_elemek` (`id`, `rendeles_id`, `keszetel_id`, `udito_id`, `menu_id`, `koret_id`, `mennyiseg`) VALUES
+(36, 21, 2, NULL, NULL, NULL, 1),
+(37, 21, NULL, NULL, 2, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -339,7 +339,8 @@ ALTER TABLE `rendeles_elemek`
   ADD KEY `fk_re_rendeles` (`rendeles_id`),
   ADD KEY `fk_re_keszetel` (`keszetel_id`),
   ADD KEY `fk_re_udito` (`udito_id`),
-  ADD KEY `fk_re_menu` (`menu_id`);
+  ADD KEY `fk_re_menu` (`menu_id`),
+  ADD KEY `indexkoret` (`koret_id`);
 
 --
 -- A tábla indexei `uditok`
@@ -394,19 +395,19 @@ ALTER TABLE `koretek`
 -- AUTO_INCREMENT a táblához `menuk`
 --
 ALTER TABLE `menuk`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT a táblához `rendelesek`
 --
 ALTER TABLE `rendelesek`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT a táblához `rendeles_elemek`
 --
 ALTER TABLE `rendeles_elemek`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT a táblához `uditok`
@@ -458,7 +459,8 @@ ALTER TABLE `rendeles_elemek`
   ADD CONSTRAINT `fk_re_keszetel` FOREIGN KEY (`keszetel_id`) REFERENCES `keszetelek` (`id`) ON DELETE SET NULL,
   ADD CONSTRAINT `fk_re_menu` FOREIGN KEY (`menu_id`) REFERENCES `menuk` (`id`) ON DELETE SET NULL,
   ADD CONSTRAINT `fk_re_rendeles` FOREIGN KEY (`rendeles_id`) REFERENCES `rendelesek` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_re_udito` FOREIGN KEY (`udito_id`) REFERENCES `uditok` (`id`) ON DELETE SET NULL;
+  ADD CONSTRAINT `fk_re_udito` FOREIGN KEY (`udito_id`) REFERENCES `uditok` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `rendeles_elemek_ibfk_1` FOREIGN KEY (`koret_id`) REFERENCES `koretek` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Megkötések a táblához `users`

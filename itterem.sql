@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2026. Feb 09. 11:20
+-- Létrehozás ideje: 2026. Feb 11. 08:22
 -- Kiszolgáló verziója: 10.4.32-MariaDB
 -- PHP verzió: 8.2.12
 
@@ -189,13 +189,6 @@ CREATE TABLE `rendelesek` (
   `statusz` varchar(50) DEFAULT 'Függőben'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 
---
--- A tábla adatainak kiíratása `rendelesek`
---
-
-INSERT INTO `rendelesek` (`id`, `felhasznalo_id`, `datum`, `statusz`) VALUES
-(21, 23, '2026-02-09 11:04:04', 'Pending');
-
 -- --------------------------------------------------------
 
 --
@@ -211,14 +204,6 @@ CREATE TABLE `rendeles_elemek` (
   `koret_id` int(11) DEFAULT NULL,
   `mennyiseg` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
-
---
--- A tábla adatainak kiíratása `rendeles_elemek`
---
-
-INSERT INTO `rendeles_elemek` (`id`, `rendeles_id`, `keszetel_id`, `udito_id`, `menu_id`, `koret_id`, `mennyiseg`) VALUES
-(36, 21, 2, NULL, NULL, NULL, 1),
-(37, 21, NULL, NULL, 2, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -401,13 +386,13 @@ ALTER TABLE `menuk`
 -- AUTO_INCREMENT a táblához `rendelesek`
 --
 ALTER TABLE `rendelesek`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT a táblához `rendeles_elemek`
 --
 ALTER TABLE `rendeles_elemek`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT a táblához `uditok`

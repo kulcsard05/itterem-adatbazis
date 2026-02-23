@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2026. Feb 18. 09:36
+-- Létrehozás ideje: 2026. Feb 23. 09:16
 -- Kiszolgáló verziója: 10.4.32-MariaDB
 -- PHP verzió: 8.2.12
 
@@ -38,9 +38,13 @@ CREATE TABLE `hozzavalok` (
 
 INSERT INTO `hozzavalok` (`id`, `hozzavalo_nev`) VALUES
 (1, 'Hamburger hus'),
-(2, 'Hamburger puffancs'),
+(2, 'asd'),
 (3, 'Sajt'),
-(4, 'Paradicsom');
+(4, 'Paradicsom'),
+(8, 'asd3'),
+(9, 'test1'),
+(10, 'test2'),
+(11, 'test3');
 
 -- --------------------------------------------------------
 
@@ -60,8 +64,9 @@ CREATE TABLE `jogok` (
 --
 
 INSERT INTO `jogok` (`id`, `szint`, `nev`, `leiras`) VALUES
-(1, 0, 'Felhasználó', 'Bejelentkezett felhasználó, alap jog'),
-(2, 1, 'Admin', 'Admin');
+(1, 0, 'inkativ felhasznalo', 'Nem bejelentkezett felhasználó, alap jog'),
+(2, 1, 'Aktiv felhasznalo', 'alapjog'),
+(7, 3, 'Admin', 'Admin');
 
 -- --------------------------------------------------------
 
@@ -278,7 +283,9 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `jogosultsag`, `teljes_nev`, `email`, `telefonszam`, `Hash`, `Salt`, `aktiv`) VALUES
 (1, 1, 'Admin Felhasználó', 'admin@itterem.hu', '+36301234567', '3126ea157a83cd56a1c13466e57770cda4b0f57580350d26bcb7492aebd321cd', 'z3QvvUccODMbctUB4j0gB3ZjWBLol3oalDxDsdkdiCMhSm26uHAeWYGt9k8sGRq9', 1),
-(2, 0, 'Test Felhasználó', 'user@itterem.hu', '+36307654321', '3126ea157a83cd56a1c13466e57770cda4b0f57580350d26bcb7492aebd321cd', 'z3QvvUccODMbctUB4j0gB3ZjWBLol3oalDxDsdkdiCMhSm26uHAeWYGt9k8sGRq9', 1);
+(2, 0, 'Test Felhasználó', 'user@itterem.hu', '+36307654321', '3126ea157a83cd56a1c13466e57770cda4b0f57580350d26bcb7492aebd321cd', 'z3QvvUccODMbctUB4j0gB3ZjWBLol3oalDxDsdkdiCMhSm26uHAeWYGt9k8sGRq9', 1),
+(30, 1, 'asd', 'asd', 'asd', '1e70870119890a3288f74503cc17bfc2f20f0bee8a1a59f203d76581b32ac553', '22StEpYkMjvpRcOsJxZpOQ==', 1),
+(31, 3, 'string', 'string', 'string', 'e1152153f1692271895da0e734b4c7f66c41aec7f0a501fea2809f2ade366777', 'aennFsdscdLENiYemV7zdg==', 2);
 
 --
 -- Indexek a kiírt táblákhoz
@@ -374,13 +381,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT a táblához `hozzavalok`
 --
 ALTER TABLE `hozzavalok`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT a táblához `jogok`
 --
 ALTER TABLE `jogok`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT a táblához `kategoria`
@@ -428,7 +435,7 @@ ALTER TABLE `uditok`
 -- AUTO_INCREMENT a táblához `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- Megkötések a kiírt táblákhoz
